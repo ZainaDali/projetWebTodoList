@@ -1,12 +1,12 @@
 import {Component, inject, signal} from '@angular/core';
 import {AuthService} from '../../../core/auth/services/auth-service';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -16,10 +16,10 @@ export class Login {
   private fb = inject(FormBuilder)
   private router = inject(Router)
 
-  loginError = signal<string | null>(null); // partie 0
+  loginError = signal<string | null>(null);
 
   loginForm = this.fb.nonNullable.group({
-    username: ['', [Validators.required, Validators.minLength(3)]], // partie 0
+    username: ['', [Validators.required, Validators.minLength(3)]], 
     password: ['', [Validators.required, Validators.minLength(6)] ]
   })
 

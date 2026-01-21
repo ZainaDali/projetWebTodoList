@@ -21,6 +21,13 @@
         class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         required
       />
+      @if (tasksForm.controls.title.touched && tasksForm.controls.title.invalid) {
+        <p class="text-red-600 text-sm">
+          @if (tasksForm.controls.title.hasError('required')) {
+            Titre obligatoire
+          }
+        </p>
+      }
     </div>
 
     <!-- Description -->
@@ -32,6 +39,14 @@
         placeholder="Décrivez la tâche, les objectifs, les contraintes, etc."
         class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
       ></textarea>
+      @if (tasksForm.controls.description.touched && tasksForm.controls.description.invalid) {
+        <p class="text-red-600 text-sm">
+          @if (tasksForm.controls.description.hasError('required')) {
+            Description obligatoire
+          }
+        </p>
+      }
+
     </div>
 
     <!-- Assigner à l'utilisateur -->
@@ -71,4 +86,12 @@
       </button>
     </div>
   </form>
+  <div  class="w-full max-w-2xl mt-4 px-6 sm:px-8">
+    @if (submitError()) {
+  <div class="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+    {{ submitError() }}
+  </div>
+}
+
+  </div>
 </div>

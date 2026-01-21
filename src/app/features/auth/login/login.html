@@ -10,7 +10,7 @@
         <div class="mt-2">
           <input formControlName="username" type="text"  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
         </div>
-        <!-- partie 0 -->
+
          @if (loginForm.controls.username.touched && loginForm.controls.username.invalid) {
             <p class="text-red-600 text-sm">
               @if (loginForm.controls.username.hasError('required')) {
@@ -28,7 +28,7 @@
           <input formControlName="password"  type="password" name="password"  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
         </div>
 
-        <!-- partie 0 -->
+
         @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
           <p class="text-red-600 text-sm">
             @if (loginForm.controls.password.hasError('required')) {
@@ -39,8 +39,8 @@
       </div>
 
       <div>
-        <!-- partie 0 -->
-        <button type="submit" [disabled]="loginForm.invalid" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+      
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
       </div>
     </form>
     @if (loginError()) {
@@ -54,8 +54,10 @@
 
 
     <p class="mt-10 text-center text-sm/6 text-gray-500">
-      Not a member?
-      <a class="font-semibold text-indigo-600 hover:text-indigo-500">Inscription</a>
+      Pas encore inscrit ?
+      <a routerLink="/register" class="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer">
+        S'inscrire
+      </a>
     </p>
   </div>
 </div>

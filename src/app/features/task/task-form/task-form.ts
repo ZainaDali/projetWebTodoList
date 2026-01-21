@@ -22,6 +22,8 @@ export class TaskForm implements OnInit{
   private taskService = inject(TaskService)
   private router = inject(Router)
   private usersService = inject(UsersService)
+  submitError = signal<string | null>(null);
+
 
 
   users: WritableSignal<User[]> = signal<User[]>([])
@@ -56,18 +58,25 @@ export class TaskForm implements OnInit{
 
 
   onSubmit() {
+    if (this.tasksForm.invalid) {
+    this.tasksForm.markAllAsTouched();
+    return;
+  }
+
+  this.submitError.set(null);
+
     const task :Tasks = this.tasksForm.getRawValue()
     if (this.id) {
       this.taskService.updateTask(+this.id, task).subscribe({
         next: () => this.router.navigate(['/tasks']),
-        error: () => console.log('error')
+        error: () => this.submitError.set("Impossible de modifier la tâche"),
       })
     } else {
       this.taskService.createTask(task).subscribe({
         next: () => {
           this.router.navigate(['/tasks'])
         },
-        error: () => console.log('error')
+        error: () => this.submitError.set("Impossible de créer la tâche"),
       })
     }
 
