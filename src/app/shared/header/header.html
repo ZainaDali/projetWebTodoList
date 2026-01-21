@@ -4,9 +4,13 @@
     <div class="text-3xl sm:text-4xl font-extrabold text-white">
       Task Manager 🚀
     </div>
-    @if (authService.currentUser()?.role === 'ADMIN') {
-      <a routerLink="/users" class="text-indigo-600 hover:text-indigo-500">Gérer les utilisateurs</a>
-    }
+    <div class="flex items-center gap-6">
+      <a routerLink="/dashboard" class="text-indigo-600 hover:text-indigo-500">Dashboard</a>
+      <a routerLink="/tasks" class="text-indigo-600 hover:text-indigo-500">Tâches</a>
+      @if (authService.currentUser()?.role === 'ADMIN') {
+        <a routerLink="/users" class="text-indigo-600 hover:text-indigo-500">Utilisateurs</a>
+      }
+    </div>
 
     <!-- Right side -->
     @if (authService.currentUser()) {
