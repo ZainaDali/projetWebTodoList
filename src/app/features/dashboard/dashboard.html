@@ -1,0 +1,37 @@
+<h1>Dashboard</h1>
+
+<div class="kpi-container">
+
+  <!-- TOTAL : ADMIN SEULEMENT -->
+  <div class="kpi-card" *ngIf="isAdmin()">
+    <h3>Total des tâches</h3>
+    <p>{{ totalTasks }}</p>
+  </div>
+
+  <!-- TERMINÉES : SELON LE RÔLE -->
+  <div class="kpi-card">
+    <h3>Tâches terminées</h3>
+    <p>{{ doneTasks }}</p>
+  </div>
+
+  <!-- MES TÂCHES -->
+  <div class="kpi-card">
+    <h3>Mes tâches</h3>
+    <p>{{ myTasks }}</p>
+  </div>
+
+</div>
+
+<div class="progress-section">
+  <p>Progression</p>
+
+  <div class="progress-container">
+    <div
+      class="progress-bar"
+      [style.width.%]="completionPercent"
+    ></div>
+  </div>
+
+  <p>{{ completionPercent }} % complété</p>
+</div>
+
