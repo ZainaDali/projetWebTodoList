@@ -1,9 +1,11 @@
-import {Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {Component, computed, DestroyRef, inject, OnInit, signal} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {TaskService} from '../services/taskService';
 import {Status, Tasks} from '../interfaces/tasks';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {TaskStatusPipe} from '../pipe/task-status-pipe';
+
+type FilterType = 'all' | 'pending' | 'done';
 
 @Component({
   selector: 'app-task-list',
@@ -18,7 +20,22 @@ export class TaskList implements OnInit {
   private taskService: TaskService = inject(TaskService)
   private destroyRef = inject(DestroyRef);
 
-  tasks = signal<Tasks[]>([])
+  tasks = signal<Tasks[]>([]);
+  currentFilter = signal<FilterType>('all');
+
+  filteredTasks = computed(() => {
+    const filter = this.currentFilter();
+    const allTasks = this.tasks();
+
+    switch (filter) {
+      case 'pending':
+        return allTasks.filter(task => task.status === Status.PENDING || task.status === Status.IN_PROGRESS);
+      case 'done':
+        return allTasks.filter(task => task.status === Status.DONE);
+      default:
+        return allTasks;
+    }
+  });
 
   ngOnInit() {
     this.getTasks()
@@ -69,5 +86,9 @@ export class TaskList implements OnInit {
           error: () => console.log('Erreur lors de la suppression')
         })
     }
+  }
+
+  setFilter(filter: FilterType) {
+    this.currentFilter.set(filter);
   }
 }
