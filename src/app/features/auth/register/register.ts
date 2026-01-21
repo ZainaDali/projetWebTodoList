@@ -22,7 +22,7 @@ export class Register {
   errorMessage = signal('')
 
   registerForm = this.fb.nonNullable.group({
-    username: ['', Validators.required],
+    username: ['', [Validators.required, Validators.minLength(3)]], // partie 0
     password: ['', [Validators.required, Validators.minLength(6)]]
   })
 
