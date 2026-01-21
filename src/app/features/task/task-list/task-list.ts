@@ -58,4 +58,16 @@ export class TaskList implements OnInit {
     }
   }
 
+  deleteTask (task: Tasks) {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer la tâche "${task.title}" ?`)) {
+      this.taskService.deleteTask(task.id)
+        .subscribe({
+          next: () => {
+
+            this.getTasks()
+          },
+          error: () => console.log('Erreur lors de la suppression')
+        })
+    }
+  }
 }
