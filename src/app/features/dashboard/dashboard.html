@@ -1,0 +1,122 @@
+<div class="mx-auto max-w-6xl p-4 md:p-6">
+
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h1>
+    <p class="mt-2 text-slate-500">Bienvenue, {{ authService.currentUser()?.username }}! Voici un aperçu de vos statistiques.</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="text-center py-12">
+      <p class="text-slate-500">Chargement des données...</p>
+    </div>
+  } @else {
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3 mb-8">
+
+
+      @if (authService.currentUser()?.role === 'ADMIN') {
+        <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-slate-600">Total des tâches</p>
+              <p class="mt-2 text-4xl font-bold text-indigo-600">{{ totalTasks() }}</p>
+            </div>
+            <div class="rounded-lg bg-indigo-50 p-3">
+              <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      }
+
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-slate-600">Tâches terminées</p>
+            <p class="mt-2 text-4xl font-bold text-green-600">{{ completedTasks() }}</p>
+          </div>
+          <div class="rounded-lg bg-green-50 p-3">
+            <svg class="h-8 w-8 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-slate-600">Mes tâches assignées</p>
+            <p class="mt-2 text-4xl font-bold text-orange-600">{{ myTasks() }}</p>
+          </div>
+          <div class="rounded-lg bg-orange-50 p-3">
+            <svg class="h-8 w-8 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-lg font-semibold text-slate-900">Progression générale</h2>
+          <span class="text-2xl font-bold text-indigo-600">{{ completionPercentage() }}%</span>
+        </div>
+        <p class="text-sm text-slate-500">
+          {{ completedTasks() }} tâche(s) terminée(s) sur {{ totalTasks() }}
+        </p>
+      </div>
+
+
+      <div class="w-full bg-slate-200 rounded-full h-4 overflow-hidden">
+        <div
+          class="bg-indigo-600 h-4 rounded-full transition-all duration-500"
+          [style.width.%]="completionPercentage()">
+        </div>
+      </div>
+
+
+      <div class="mt-6 grid grid-cols-3 gap-4">
+        <div class="text-center">
+          <div class="rounded-lg bg-red-50 p-3 mb-2">
+            <p class="text-sm font-semibold text-red-600">À faire</p>
+          </div>
+          <p class="text-2xl font-bold text-red-600">
+            {{ pendingTasks() }}
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="rounded-lg bg-amber-50 p-3 mb-2">
+            <p class="text-sm font-semibold text-amber-600">En cours</p>
+          </div>
+          <p class="text-2xl font-bold text-amber-600">
+            {{ inProgressTasks() }}
+          </p>
+        </div>
+        <div class="text-center">
+          <div class="rounded-lg bg-green-50 p-3 mb-2">
+            <p class="text-sm font-semibold text-green-600">Terminées</p>
+          </div>
+          <p class="text-2xl font-bold text-green-600">{{ completedTasks() }}</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mt-8 text-center">
+      <a
+        routerLink="/tasks"
+        type="button"
+        class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+        Voir toutes les tâches
+      </a>
+    </div>
+  }
+</div>
