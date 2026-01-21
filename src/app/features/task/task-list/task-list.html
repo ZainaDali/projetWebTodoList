@@ -12,8 +12,41 @@
     </div>
   </div>
 
+  <div class="mb-4 flex flex-wrap items-center gap-2">
+    <span class="text-sm font-medium text-slate-600">Filtrer :</span>
+    <div class="flex gap-2">
+      <button
+        (click)="setFilter('all')"
+        type="button"
+        [class]="currentFilter() === 'all'
+          ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+          : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-300'"
+        class="rounded-lg px-4 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+        Toutes
+      </button>
+      <button
+        (click)="setFilter('pending')"
+        type="button"
+        [class]="currentFilter() === 'pending'
+          ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+          : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-300'"
+        class="rounded-lg px-4 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+        À faire
+      </button>
+      <button
+        (click)="setFilter('done')"
+        type="button"
+        [class]="currentFilter() === 'done'
+          ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+          : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-300'"
+        class="rounded-lg px-4 py-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-indigo-500/50">
+        Terminées
+      </button>
+    </div>
+  </div>
+
   <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
-    @for (task of tasks(); track task.id) {
+    @for (task of filteredTasks(); track task.id) {
       <li class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
         <div class="flex items-start justify-between gap-3">
           <div class="min-w-0 flex-1">
