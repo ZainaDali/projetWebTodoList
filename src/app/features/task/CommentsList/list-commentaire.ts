@@ -1,10 +1,10 @@
 import {Component, Input, inject, signal, OnInit} from '@angular/core';
 import {ReactiveFormsModule, FormBuilder, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {AuthService} from '../../../../core/auth/services/auth-service';
+import {AuthService} from '../../../core/auth/services/auth-service';
 import {RouterLink} from '@angular/router';
-import {Commentaire} from '../../interfaces/commentaire';
-import {User} from '../../../../core/auth/interfaces/user';
+import {Commentaire} from '../interfaces/commentaire';
+import {User} from '../../../core/auth/interfaces/user';
 
 @Component({
   selector: 'app-list-commentaire',
@@ -14,7 +14,7 @@ import {User} from '../../../../core/auth/interfaces/user';
   styleUrl: './list-commentaire.css',
 })
 export class ListCommentaire implements OnInit {
-  @Input() taskId!: number;
+  @Input() taskId?: number;
 
   private fb = inject(FormBuilder);
   protected authService = inject(AuthService);

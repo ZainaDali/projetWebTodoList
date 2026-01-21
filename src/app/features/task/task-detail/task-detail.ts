@@ -5,19 +5,20 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Router, RouterLink} from '@angular/router';
 import {TaskStatusPipe} from '../pipe/task-status-pipe';
 import {DatePipe} from '@angular/common';
-
+import {ListCommentaire} from '../CommentsList/list-commentaire';
 @Component({
   selector: 'app-task-detail',
   imports: [
     RouterLink,
     TaskStatusPipe,
-    DatePipe
+    DatePipe,
+    ListCommentaire
   ],
   templateUrl: './task-detail.html',
   styleUrl: './task-detail.css',
 })
 export class TaskDetail implements OnInit {
-  @Input() id!: string;
+  @Input() id?: string;
 
   private taskService: TaskService = inject(TaskService);
   private destroyRef = inject(DestroyRef);

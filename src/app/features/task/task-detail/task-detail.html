@@ -94,6 +94,9 @@
           Retour
         </button>
       </div>
+      <div class="mt-8">
+      <app-list-commentaire [taskId]="task()?.id || undefined"></app-list-commentaire>
+    </div>
     </div>
   } @else {
     <div class="rounded-xl border border-slate-200 bg-white p-6 text-center">
